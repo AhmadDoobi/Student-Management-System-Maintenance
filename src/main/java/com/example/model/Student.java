@@ -8,8 +8,7 @@ public class Student {
     private final int id;       ///< Unique student ID
     private final String name;  ///< Student name
 
-    @SuppressWarnings("FieldMayBeFinal") ///< Age can change
-    private int age;      ///< Student age
+    private final int age;      ///< Student age
 
     /**
      * @brief Constructor for creating a student.
