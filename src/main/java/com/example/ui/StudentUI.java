@@ -59,11 +59,8 @@ public class StudentUI {
         System.out.print("Enter Student Age: ");
         int age = scanner.nextInt();
 
-        if (studentService.addStudent(new Student(id, name, age))) {
-            System.out.println("Student added successfully!");
-        } else {
-            System.out.println("Error: Student ID already exists.");
-        }
+        studentService.addStudent(new Student(id, name, age));
+        System.out.println(studentService);
     }
 
     /** @brief Displays all students in a formatted table. */

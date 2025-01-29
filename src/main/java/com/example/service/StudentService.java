@@ -20,16 +20,21 @@ public class StudentService {
     /**
      * @brief Adds a new student to the system after validating unique ID.
      * @param student The student object to add.
-     * @return True if added successfully, false if ID already exists.
+     * @return True if added successfully, false if ID already exists or age is less than 1.
      */
-    public boolean addStudent(Student student) {
+    public String addStudent(Student student) {
         for (Student s : students) {
             if (s.getId() == student.getId()) {
-                return false; // Duplicate ID found
+                return "Error: Student ID already exists."; // Duplicate ID found
             }
         }
-        students.add(student);
-        return true;
+        if (student.getAge() >= 0) {
+            System.out.println("couldn't add student, age cant be less than 1"); // age can't be less than 1
+            return "Error: Student age can't be less than 1";
+        } else {
+            students.add(student);
+            return "Student added successfully!"; // student added succefully 
+        }
     }
 
     /**
