@@ -30,30 +30,30 @@ class StudentServiceTest {
      * @brief Tests adding a student successfully.
      */
     @Test
-    void testAddStudentSuccess() {
+    void testaddNewStudentSuccess() {
         Student student = new Student(1, "Alice", 20);
-        assertTrue(studentService.addStudent(student), "Student should be added successfully.");
+        assertTrue(studentService.addNewStudent(student), "Student should be added successfully.");
     }
 
     /**
      * @brief Tests that duplicate student IDs are not allowed.
      */
     @Test
-    void testAddStudentDuplicateId() {
-        studentService.addStudent(new Student(1, "Alice", 20));
-        assertFalse(studentService.addStudent(new Student(1, "Bob", 22)), "Duplicate ID should not be allowed.");
+    void testaddNewStudentDuplicateId() {
+        studentService.addNewStudent(new Student(1, "Alice", 20));
+        assertFalse(studentService.addNewStudent(new Student(1, "Bob", 22)), "Duplicate ID should not be allowed.");
     }
 
     /**
      * @brief Tests that student names cannot contain numbers.
      */
     @Test
-    void testAddStudentInvalidName() {
-        assertFalse(studentService.addStudent(new Student(1, "Alice123", 20)), 
+    void testaddNewStudentInvalidName() {
+        assertFalse(studentService.addNewStudent(new Student(1, "Alice123", 20)), 
             "Student name with numbers should not be allowed.");
-        assertFalse(studentService.addStudent(new Student(2, "Bob9", 22)), 
+        assertFalse(studentService.addNewStudent(new Student(2, "Bob9", 22)), 
             "Student name with numbers should not be allowed.");
-        assertTrue(studentService.addStudent(new Student(3, "Charlie", 25)), 
+        assertTrue(studentService.addNewStudent(new Student(3, "Charlie", 25)), 
             "Valid student name should be allowed.");
     }
 
@@ -61,12 +61,12 @@ class StudentServiceTest {
      * @brief Tests that student age must be at least 1.
      */
     @Test
-    void testAddStudentInvalidAge() {
-        assertFalse(studentService.addStudent(new Student(1, "Alice", 0)), 
+    void testaddNewStudentInvalidAge() {
+        assertFalse(studentService.addNewStudent(new Student(1, "Alice", 0)), 
             "Student with age 0 should not be allowed.");
-        assertFalse(studentService.addStudent(new Student(2, "Bob", -5)), 
+        assertFalse(studentService.addNewStudent(new Student(2, "Bob", -5)), 
             "Student with negative age should not be allowed.");
-        assertTrue(studentService.addStudent(new Student(3, "Charlie", 1)), 
+        assertTrue(studentService.addNewStudent(new Student(3, "Charlie", 1)), 
             "Student with valid age should be allowed.");
     }
 
@@ -75,8 +75,8 @@ class StudentServiceTest {
      */
     @Test
     void testGetAllStudents() {
-        studentService.addStudent(new Student(1, "Alice", 20));
-        studentService.addStudent(new Student(2, "Bob", 22));
+        studentService.addNewStudent(new Student(1, "Alice", 20));
+        studentService.addNewStudent(new Student(2, "Bob", 22));
         List<Student> students = studentService.getAllStudents();
         assertEquals(2, students.size(), "There should be 2 students in the list.");
     }
@@ -87,7 +87,7 @@ class StudentServiceTest {
     @Test
     void testSearchStudentByIdFound() {
         Student student = new Student(1, "Alice", 20);
-        studentService.addStudent(student);
+        studentService.addNewStudent(student);
         assertEquals(student, studentService.searchStudentById(1), "Student with ID 1 should be found.");
     }
 
@@ -104,7 +104,7 @@ class StudentServiceTest {
      */
     @Test
     void testRemoveStudentByIdSuccess() {
-        studentService.addStudent(new Student(1, "Alice", 20));
+        studentService.addNewStudent(new Student(1, "Alice", 20));
         assertTrue(studentService.removeStudentById(1), "Student should be removed successfully.");
         assertNull(studentService.searchStudentById(1), "Removed student should not be found.");
     }

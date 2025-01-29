@@ -59,7 +59,7 @@ public class StudentUI {
         System.out.print("Enter Student Age: ");
         int age = scanner.nextInt();
 
-        studentService.addStudent(new Student(id, name, age));
+        studentService.addNewStudent(new Student(id, name, age));
         System.out.println(studentService);
     }
 

@@ -22,11 +22,11 @@ public class StudentService {
      * @param student The student object to add.
      * @return True if added successfully, false if ID already exists or age is less than 1.
      */
-    public boolean  addStudent(Student student) {
+    public boolean  addNewStudent(Student student) {
         for (Student s : students) {
             if (s.getId() == student.getId()) {
                 System.out.println("Error: student ID is used before");
-                return false; // Duplicate ID found
+                return false; // Error duplicate ID found
             }
         }
         if (student.getName().matches(".*\\d.*")) { 
