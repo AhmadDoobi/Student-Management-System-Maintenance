@@ -7,7 +7,6 @@ package com.example.model;
 public class Student {
     private final int id;       ///< Unique student ID
     private final String name;  ///< Student name
-
     private final int age;      ///< Student age
 
     /**

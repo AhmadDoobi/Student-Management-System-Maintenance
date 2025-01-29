@@ -13,42 +13,49 @@ import com.example.model.Student;
 
 /**
  * @class StudentServiceTest
- * @brief Unit tests for StudentService class.
+ * @brief Unit tests for the StudentService class.
+ * 
+ * @details This test suite was created to validate the core functionalities of 
+ *          the StudentService class, including adding, retrieving, searching, 
+ *          and removing students.
  */
 class StudentServiceTest {
     private StudentService studentService;
 
-    /**
-     * @brief Initializes a new StudentService before each test.
+    /** 
+     * @brief Initializes a new StudentService instance before each test. 
+     * 
+     * @note Ensures each test runs independently with a fresh StudentService instance.
      */
     @BeforeEach
     void setUp() {
         studentService = new StudentService();
     }
 
-    /**
-     * @brief Tests adding a student successfully.
+    /** 
+     * @brief Tests if a student is added successfully. 
      */
     @Test
-    void testaddNewStudentSuccess() {
+    void testAddNewStudentSuccess() {
         Student student = new Student(1, "Alice", 20);
         assertTrue(studentService.addNewStudent(student), "Student should be added successfully.");
     }
 
-    /**
-     * @brief Tests that duplicate student IDs are not allowed.
+    /** 
+     * @brief Tests that duplicate student IDs are not allowed. 
      */
     @Test
-    void testaddNewStudentDuplicateId() {
+    void testAddNewStudentDuplicateId() {
         studentService.addNewStudent(new Student(1, "Alice", 20));
-        assertFalse(studentService.addNewStudent(new Student(1, "Bob", 22)), "Duplicate ID should not be allowed.");
+        assertFalse(studentService.addNewStudent(new Student(1, "Bob", 22)), 
+            "Duplicate ID should not be allowed.");
     }
 
-    /**
-     * @brief Tests that student names cannot contain numbers.
+    /** 
+     * @brief Tests validation for student names. 
      */
     @Test
-    void testaddNewStudentInvalidName() {
+    void testAddNewStudentInvalidName() {
         assertFalse(studentService.addNewStudent(new Student(1, "Alice123", 20)), 
             "Student name with numbers should not be allowed.");
         assertFalse(studentService.addNewStudent(new Student(2, "Bob9", 22)), 
@@ -57,11 +64,11 @@ class StudentServiceTest {
             "Valid student name should be allowed.");
     }
 
-    /**
-     * @brief Tests that student age must be at least 1.
+    /** 
+     * @brief Tests validation for student age. 
      */
     @Test
-    void testaddNewStudentInvalidAge() {
+    void testAddNewStudentInvalidAge() {
         assertFalse(studentService.addNewStudent(new Student(1, "Alice", 0)), 
             "Student with age 0 should not be allowed.");
         assertFalse(studentService.addNewStudent(new Student(2, "Bob", -5)), 
@@ -70,8 +77,8 @@ class StudentServiceTest {
             "Student with valid age should be allowed.");
     }
 
-    /**
-     * @brief Tests retrieving all students.
+    /** 
+     * @brief Tests retrieving all students. 
      */
     @Test
     void testGetAllStudents() {
@@ -81,8 +88,8 @@ class StudentServiceTest {
         assertEquals(2, students.size(), "There should be 2 students in the list.");
     }
 
-    /**
-     * @brief Tests searching for a student by ID.
+    /** 
+     * @brief Tests searching for a student by ID. 
      */
     @Test
     void testSearchStudentByIdFound() {
@@ -91,16 +98,16 @@ class StudentServiceTest {
         assertEquals(student, studentService.searchStudentById(1), "Student with ID 1 should be found.");
     }
 
-    /**
-     * @brief Tests searching for a student that does not exist.
+    /** 
+     * @brief Tests searching for a student that does not exist. 
      */
     @Test
     void testSearchStudentByIdNotFound() {
         assertNull(studentService.searchStudentById(999), "Student with non-existent ID should return null.");
     }
 
-    /**
-     * @brief Tests removing a student successfully.
+    /** 
+     * @brief Tests removing a student successfully. 
      */
     @Test
     void testRemoveStudentByIdSuccess() {
@@ -109,8 +116,8 @@ class StudentServiceTest {
         assertNull(studentService.searchStudentById(1), "Removed student should not be found.");
     }
 
-    /**
-     * @brief Tests removing a non-existent student.
+    /** 
+     * @brief Tests removing a non-existent student. 
      */
     @Test
     void testRemoveStudentByIdNotFound() {
