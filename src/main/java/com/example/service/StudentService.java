@@ -22,18 +22,24 @@ public class StudentService {
      * @param student The student object to add.
      * @return True if added successfully, false if ID already exists or age is less than 1.
      */
-    public String addStudent(Student student) {
+    public boolean  addStudent(Student student) {
         for (Student s : students) {
             if (s.getId() == student.getId()) {
-                return "Error: Student ID already exists."; // Duplicate ID found
+                System.out.println("Error: student ID is used before");
+                return false; // Duplicate ID found
             }
         }
-        if (student.getAge() >= 0) {
-            System.out.println("couldn't add student, age cant be less than 1"); // age can't be less than 1
-            return "Error: Student age can't be less than 1";
+        if (student.getName().matches(".*\\d.*")) { 
+            System.out.println("Error: name cant contain numbers");
+            return false; // Name can't contain numbers
+        }
+        if (student.getAge() <= 0) {
+            System.out.println("Error: age cant be less than 1"); 
+            return false; // Age can't be less than 1
         } else {
             students.add(student);
-            return "Student added successfully!"; // student added succefully 
+            System.out.println("student added successfully"); 
+            return true; // Student added successfully
         }
     }
 

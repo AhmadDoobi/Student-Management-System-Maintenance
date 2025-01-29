@@ -89,10 +89,6 @@ public class StudentUI {
         System.out.print("Enter Student ID to remove: ");
         int id = scanner.nextInt();
 
-        if (studentService.removeStudentById(id)) {
-            System.out.println("Student removed successfully!");
-        } else {
-            System.out.println("Error: Student not found.");
-        }
+    studentService.removeStudentById(id);
     }
 }

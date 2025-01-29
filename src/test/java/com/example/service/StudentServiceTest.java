@@ -45,6 +45,32 @@ class StudentServiceTest {
     }
 
     /**
+     * @brief Tests that student names cannot contain numbers.
+     */
+    @Test
+    void testAddStudentInvalidName() {
+        assertFalse(studentService.addStudent(new Student(1, "Alice123", 20)), 
+            "Student name with numbers should not be allowed.");
+        assertFalse(studentService.addStudent(new Student(2, "Bob9", 22)), 
+            "Student name with numbers should not be allowed.");
+        assertTrue(studentService.addStudent(new Student(3, "Charlie", 25)), 
+            "Valid student name should be allowed.");
+    }
+
+    /**
+     * @brief Tests that student age must be at least 1.
+     */
+    @Test
+    void testAddStudentInvalidAge() {
+        assertFalse(studentService.addStudent(new Student(1, "Alice", 0)), 
+            "Student with age 0 should not be allowed.");
+        assertFalse(studentService.addStudent(new Student(2, "Bob", -5)), 
+            "Student with negative age should not be allowed.");
+        assertTrue(studentService.addStudent(new Student(3, "Charlie", 1)), 
+            "Student with valid age should be allowed.");
+    }
+
+    /**
      * @brief Tests retrieving all students.
      */
     @Test
