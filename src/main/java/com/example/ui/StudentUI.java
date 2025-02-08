@@ -13,22 +13,16 @@ public class StudentUI {
     private final StudentService studentService; ///< Student service instance.
     private final Scanner scanner; ///< Scanner for user input.
 
-    /** 
+    /**
      * @brief Constructor initializes student service and scanner.
-     * 
-     * @note No major changes.
      */
     public StudentUI() {
         this.studentService = new StudentService();
         this.scanner = new Scanner(System.in);
     }
 
-    /** 
-     * @brief Displays the main menu and processes user choices. 
-     * 
-     * @changes 
-     * - Added option 4 to remove students.
-     * - Improved input handling to avoid scanner issues.
+    /**
+     * @brief Displays the main menu and processes user choices.
      */
     public void showMenu() {
         while (true) {
@@ -36,20 +30,18 @@ public class StudentUI {
             System.out.println("1. Add New Student");
             System.out.println("2. Display All Students");
             System.out.println("3. Search Student by ID");
-            System.out.println("4. Remove Student by ID"); // New Feature
+            System.out.println("4. Remove Student by ID");
             System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
+            int choice = getValidIntInput("Choose a valid option (1-5):");
             switch (choice) {
                 case 1 -> addNewStudent();
                 case 2 -> displayAllStudents();
                 case 3 -> searchStudent();
-                case 4 -> removeStudent(); // New Feature
+                case 4 -> removeStudent();
                 case 5 -> {
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting program. Goodbye!");
                     return;
                 }
                 default -> System.out.println("Invalid option. Try again.");
@@ -57,30 +49,32 @@ public class StudentUI {
         }
     }
 
-    /** 
-     * @brief Adds a new student after validating unique ID. 
-     * 
-     * @changes 
-     * - Now validates student input before adding.
+    /**
+     * @brief Adds a new student after validating unique ID.
      */
     private void addNewStudent() {
         System.out.print("Enter Student ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        int id = getValidIntInput("Enter a valid integer for Student ID:");
 
         System.out.print("Enter Student Name: ");
-        String name = scanner.nextLine();
-
+        String name = scanner.nextLine(); // Allow free-form text for name.
+        while (name.matches(".*\\d.*")){
+            System.out.println("Enter a avalid name without numbers:");
+            name = scanner.nextLine();
+        }
         System.out.print("Enter Student Age: ");
-        int age = scanner.nextInt();
+        int age = getValidIntInput("Enter a valid integer for Student Age:");
+        while (age <= 0){
+            System.out.println("Error: age can't be less than 1");
+            System.out.print("Enter Student Age: ");
+            age = getValidIntInput("Enter a valid integer for Student Age:");
+        }
 
         studentService.addNewStudent(new Student(id, name, age));
     }
 
-    /** 
-     * @brief Displays all students in a formatted table. 
-     * 
-     * @note No major changes.
+    /**
+     * @brief Displays all students in a formatted table.
      */
     private void displayAllStudents() {
         System.out.println("\n--- Student List ---");
@@ -89,14 +83,12 @@ public class StudentUI {
         }
     }
 
-    /** 
-     * @brief Searches for a student by ID and displays details. 
-     * 
-     * @note No major changes.
+    /**
+     * @brief Searches for a student by ID and displays details.
      */
     private void searchStudent() {
         System.out.print("Enter Student ID to search: ");
-        int id = scanner.nextInt();
+        int id = getValidIntInput("Enter a valid integer for Student ID:");
         Student student = studentService.searchStudentById(id);
 
         if (student != null) {
@@ -106,15 +98,28 @@ public class StudentUI {
         }
     }
 
-    /** 
-     * @brief Removes a student by ID and displays a confirmation message. 
-     * 
-     * @changes 
-     * - Added confirmation message for student removal.
+    /**
+     * @brief Removes a student by ID and displays a confirmation message.
      */
     private void removeStudent() {
         System.out.print("Enter Student ID to remove: ");
-        int id = scanner.nextInt();
+        int id = getValidIntInput("Enter a valid integer for Student ID:");
         studentService.removeStudentById(id);
+    }
+
+    /**
+     * @brief Utility method to get valid integer input from the user.
+     * @param errorMessage The error message to display for invalid input.
+     * @return A valid integer.
+     */
+    private int getValidIntInput(String errorMessage) {
+        while (true) {
+            try {
+                String input = scanner.nextLine().trim();
+                return Integer.parseInt(input); // Attempt to parse input as an integer
+            } catch (NumberFormatException e) {
+                System.out.println(errorMessage);
+            }
+        }
     }
 }
