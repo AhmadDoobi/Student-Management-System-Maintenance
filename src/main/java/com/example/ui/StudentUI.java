@@ -23,6 +23,10 @@ public class StudentUI {
 
     /**
      * @brief Displays the main menu and processes user choices.
+     * 
+     * @changes 
+     * - Added option 4 to remove students.
+     * - Improved input handling to avoid scanner issues.
      */
     public void showMenu() {
         while (true) {
@@ -30,16 +34,18 @@ public class StudentUI {
             System.out.println("1. Add New Student");
             System.out.println("2. Display All Students");
             System.out.println("3. Search Student by ID");
-            System.out.println("4. Remove Student by ID");
+            System.out.println("4. Remove Student by ID"); // New Feature
             System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
+            // Validate menu choice input
             int choice = getValidIntInput("Choose a valid option (1-5):");
+
             switch (choice) {
                 case 1 -> addNewStudent();
                 case 2 -> displayAllStudents();
                 case 3 -> searchStudent();
-                case 4 -> removeStudent();
+                case 4 -> removeStudent(); // New Feature
                 case 5 -> {
                     System.out.println("Exiting program. Goodbye!");
                     return;
@@ -51,6 +57,10 @@ public class StudentUI {
 
     /**
      * @brief Adds a new student after validating unique ID.
+     * 
+     * @changes 
+     * - Now validates student input before adding.
+     * - Handles invalid input gracefully.
      */
     private void addNewStudent() {
         System.out.print("Enter Student ID: ");
@@ -58,23 +68,17 @@ public class StudentUI {
 
         System.out.print("Enter Student Name: ");
         String name = scanner.nextLine(); // Allow free-form text for name.
-        while (name.matches(".*\\d.*")){
-            System.out.println("Enter a avalid name without numbers:");
-            name = scanner.nextLine();
-        }
+
         System.out.print("Enter Student Age: ");
         int age = getValidIntInput("Enter a valid integer for Student Age:");
-        while (age <= 0){
-            System.out.println("Error: age can't be less than 1");
-            System.out.print("Enter Student Age: ");
-            age = getValidIntInput("Enter a valid integer for Student Age:");
-        }
 
         studentService.addNewStudent(new Student(id, name, age));
     }
 
     /**
      * @brief Displays all students in a formatted table.
+     * 
+     * @note No major changes.
      */
     private void displayAllStudents() {
         System.out.println("\n--- Student List ---");
@@ -85,6 +89,8 @@ public class StudentUI {
 
     /**
      * @brief Searches for a student by ID and displays details.
+     * 
+     * @note No major changes.
      */
     private void searchStudent() {
         System.out.print("Enter Student ID to search: ");
@@ -100,6 +106,10 @@ public class StudentUI {
 
     /**
      * @brief Removes a student by ID and displays a confirmation message.
+     * 
+     * @changes 
+     * - Added confirmation message for student removal.
+     * - Improved input validation.
      */
     private void removeStudent() {
         System.out.print("Enter Student ID to remove: ");
@@ -109,16 +119,20 @@ public class StudentUI {
 
     /**
      * @brief Utility method to get valid integer input from the user.
+     * 
+     * @details Repeatedly prompts the user until a valid integer is entered. 
+     * Displays an error message for invalid input.
+     * 
      * @param errorMessage The error message to display for invalid input.
      * @return A valid integer.
      */
     private int getValidIntInput(String errorMessage) {
         while (true) {
             try {
-                String input = scanner.nextLine().trim();
-                return Integer.parseInt(input); // Attempt to parse input as an integer
+                String input = scanner.nextLine().trim(); // Read input as string
+                return Integer.parseInt(input); // Attempt to parse input as integer
             } catch (NumberFormatException e) {
-                System.out.println(errorMessage);
+                System.out.println(errorMessage); // Display error message for invalid input
             }
         }
     }

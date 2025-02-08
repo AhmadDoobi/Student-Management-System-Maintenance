@@ -1,4 +1,28 @@
 -------------------------------------------------------------------------------
 Test set: com.example.service.StudentServiceTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s - in com.example.service.StudentServiceTest
+Tests run: 9, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.036 s <<< FAILURE! - in com.example.service.StudentServiceTest
+com.example.service.StudentServiceTest.testAddNewStudentInvalidName  Time elapsed: 0.016 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Student name with numbers should not be allowed. ==> expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:63)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:36)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:239)
+	at com.example.service.StudentServiceTest.testAddNewStudentInvalidName(StudentServiceTest.java:59)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+com.example.service.StudentServiceTest.testAddNewStudentInvalidAge  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Student with age 0 should not be allowed. ==> expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:63)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:36)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:239)
+	at com.example.service.StudentServiceTest.testAddNewStudentInvalidAge(StudentServiceTest.java:72)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
